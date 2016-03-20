@@ -1,6 +1,5 @@
 require_relative '../lib/cell'
 require_relative '../lib/world'
-require 'pry'
 
 describe Cell do
 

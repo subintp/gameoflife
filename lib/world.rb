@@ -27,6 +27,22 @@ class World
     affected.each(&:swap_life)
   end
 
+  def cells
+    @cells.flatten
+  end
+
+  def perform_regeneration(t)
+    t.times do
+      self.next_generation
+    end
+  end
+
+  def pretty_display
+    @cells.each do |row|
+      p row.map{ |c| c.live.to_i}.join(" ")
+    end
+  end
+
   private
 
   def populate_cells(cells)

@@ -3,7 +3,7 @@ class Cell
   LIVE = 1
   DEAD = 0
 
-  attr_reader :world, :x, :y
+  attr_reader :world, :x, :y, :live
 
   def initialize(world, x, y, live)
     @world, @x, @y, @live = world, x, y, live
@@ -40,20 +40,26 @@ class Cell
   end
 
   def neighbours
-    neighbours = []
+    world.cells.each.inject([]) do |neighbours,cell|
 
-    neighbours.push(@world.cell_by_position(self.x + 1, self.y - 1))
-    neighbours.push(@world.cell_by_position(self.x + 1, self.y))
-    neighbours.push(@world.cell_by_position(self.x + 1, self.y + 1))
+     if self.x == cell.x && self.y == cell.y - 1
+       neighbours << cell
+     end
 
-    neighbours.push(@world.cell_by_position(self.x, self.y - 1))
-    neighbours.push(@world.cell_by_position(self.x, self.y + 1))
+     if self.x == cell.x - 1 && self.y == cell.y - 1
+       neighbours << cell
+     end
 
-    neighbours.push(@world.cell_by_position(self.x - 1, self.y - 1))
-    neighbours.push(@world.cell_by_position(self.x - 1, self.y))
-    neighbours.push(@world.cell_by_position(self.x - 1, self.y + 1))
+     if self.x == cell.x + 1 && self.y == cell.y
+       neighbours << cell
+     end
 
-    neighbours
+     if self.x == cell.x - 1 && self.y == cell.y
+       neighbours << cell
+     end
+
+     neighbours
+   end
   end
 
 end
